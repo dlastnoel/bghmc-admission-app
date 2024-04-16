@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, html, body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.notyf__toast {
+  border-radius: 7px !important;
+  max-width: 500px !important;
+}

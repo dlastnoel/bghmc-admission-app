@@ -3,18 +3,28 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\AdmissionFilter;
 use App\Http\Requests\StoreAdmissionRequest;
+use App\Http\Resources\AdmissionResource;
 use App\Models\Admission;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AdmissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $admissions = fn() => AdmissionResource::collection(AdmissionFilter::get());
+
+        $filters = fn() => $request->only('patient', 'ward', 'status', 'sort_by', 'direction', 'size');
+
+        return Inertia::render('App/Admissions/Index', [
+            'admissions' => $admissions,
+            'filters' => $filters,
+        ]);
     }
 
     /**

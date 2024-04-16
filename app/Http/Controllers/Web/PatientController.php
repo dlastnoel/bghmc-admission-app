@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\PatientFilter;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
@@ -14,9 +15,11 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $patients = fn() => PatientResource::collection(PatientFilter::get());
+
+        $filters = fn() => $request->only('query', 'sort_by', 'direction', 'size');
     }
 
     /**
