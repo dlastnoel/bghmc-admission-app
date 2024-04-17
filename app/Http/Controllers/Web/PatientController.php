@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PatientController extends Controller
 {
@@ -20,6 +21,11 @@ class PatientController extends Controller
         $patients = fn() => PatientResource::collection(PatientFilter::get());
 
         $filters = fn() => $request->only('query', 'sort_by', 'direction', 'size');
+
+        return Inertia::render('App/Patients/Index', [
+            'patients' => $patients,
+            'filters' => $filters,
+        ]);
     }
 
     /**
@@ -27,7 +33,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('App/Patients/Create');
     }
 
     /**
@@ -54,6 +60,10 @@ class PatientController extends Controller
     public function edit(Patient $patient)
     {
         $patient = fn() => new PatientResource($patient);
+
+        return Inertia::render('App/Patients/Edit', [
+            'patient' => $patient
+        ]);
     }
 
     /**

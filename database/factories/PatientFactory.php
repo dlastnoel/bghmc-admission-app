@@ -17,7 +17,12 @@ class PatientFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'firstname' => fake()->firstName(),
+            'middlename' => rand(0, 1) ? fake()->lastName() : '',
+            'lastname' => fake()->lastName(),
+            'suffix' => rand(0, 1) ? fake()->suffix() : '',
+            'date_of_birth' => fake()->date(),
+            'address' => fake()->address()
         ];
     }
 }

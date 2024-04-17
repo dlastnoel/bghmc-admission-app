@@ -23,7 +23,7 @@ class Patient extends Model
 
     public function getAgeAttribute(): float
     {
-        return Carbon::now()->diffInYears(Carbon::parse($this->date_of_birth));
+        return Carbon::parse($this->date_of_birth)->age;
     }
 
     public function admissions(): HasMany

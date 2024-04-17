@@ -12,7 +12,8 @@ class PatientFilter implements Filterable
     public static function get(): LengthAwarePaginator
     {
 
-        $sortBy = ['firstname', 'middlename', 'lastname'];
+        // $sortBy = ['firstname', 'middlename', 'lastname'];
+        $sortBy = ['created_at'];
         $direction = request('direction') && request('direction') === 'Ascending' ? 'ASC' : 'DESC';
 
         if (request('sort_by')) {
@@ -38,7 +39,7 @@ class PatientFilter implements Filterable
 
         foreach ($sortBy as $sort) {
 
-            $patients = $patients->orderBy($sortBy, $direction);
+            $patients = $patients->orderBy($sort, $direction);
         }
 
         $patients = $patients->paginate(request('size', 10))
