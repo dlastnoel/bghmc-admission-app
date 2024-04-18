@@ -1,24 +1,10 @@
 <template>
   <button
-    class="min-w-24 font-medium text-white bg-blue-600 py-2 px-5 rounded border-none disabled:brightness-150"
+    class="font-medium text-white bg-blue-600 p-2 rounded border-none disabled:brightness-150"
   >
-    {{ name }}
+    <slot />
   </button>
 </template>
 
-<script>
-export default {
-
-  name: 'ButtonPrimary',
-
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
-  }
-}
+<script setup>
 </script>
-
-<style>
-</style>

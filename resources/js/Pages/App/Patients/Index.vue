@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center">
     <PageTitle title="Patients" />
     <Link :href="route('patients.create')">
-      <ButtonPrimary name="Create" />
+      <ButtonPrimary>Create</ButtonPrimary>
     </Link>
   </div>
 

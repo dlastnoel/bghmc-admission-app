@@ -1,10 +1,20 @@
 <template>
   <PageTitle title="Admissions" />
+
+  <FormWrapper
+    name="Admission"
+    description="Only patients with no active admissions can be admitted."
+  >
+  </FormWrapper>
 </template>
 
 <script>
 import AuthLayout from '@/Layouts/AuthLayout.vue'
 import PageTitle from '@/Components/PageTitle.vue'
+import FormWrapper from '@/Components/FormWrapper.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import InputText from '@/Components/InputText.vue'
+import ErrorMessage from '@/Components/ErrorMessage.vue'
 
 import { useForm } from '@inertiajs/vue3'
 import { displayName } from '@/Helpers/displayHelpers'
@@ -16,6 +26,10 @@ export default {
 
   components: {
     PageTitle,
+    FormWrapper,
+    InputLabel,
+    InputText,
+    ErrorMessage
   },
 
   props: {

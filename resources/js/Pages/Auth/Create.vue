@@ -8,12 +8,9 @@
       <div class="rounded-lg shadow border border-grey-50 p-8 mt-5 w-[450px]">
         <h5 class="text-xl font-medium">Welcome back!</h5>
         <p class="text-sm text-gray-400 mt-3">Login to access your account.</p>
-
         <Form @submit="handleSubmit">
           <div class="my-7">
-            <label for="email" class="text-sm text-gray-700 font-medium">
-              Email Address
-            </label>
+            <InputLabel :label="email">Email Address</InputLabel>
             <Field
               v-slot="{ field, errorMessage }"
               name="email"
@@ -21,24 +18,20 @@
               rules="required|email"
               v-model="form.email"
             >
-              <input
+              <InputText
                 v-bind="field"
                 name="email"
                 type="email"
                 placeholder="user@bghmc.doh.gov.ph"
-                class="mt-1 p-3 text-sm w-full rounded border text-grey-700"
+                class="w-full"
                 :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                :value="field.value"
+                v-model="field.value"
               />
-              <small class="mt-1 text-sm block text-red-500">
-                {{ errorMessage }}
-              </small>
+              <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
           <div class="mt-7">
-            <label for="email" class="text-sm text-gray-700 font-medium">
-              Password
-            </label>
+            <InputLabel :label="password">Password</InputLabel>
             <Field
               v-slot="{ field, errorMessage }"
               name="password"
@@ -46,18 +39,16 @@
               rules="required"
               v-model="form.password"
             >
-              <input
+              <InputText
                 v-bind="field"
                 name="password"
                 type="password"
                 placeholder="********"
-                class="mt-1 p-3 text-sm w-full rounded border text-grey-700"
+                class="w-full"
                 :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
                 v-model="field.value"
               />
-              <small class="mt-1 text-sm block text-red-500">
-                {{ errorMessage }}
-              </small>
+              <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
           <div class="mt-7">
@@ -82,6 +73,9 @@
 
 <script>
 import { Field, Form } from 'vee-validate'
+import InputText from '@/Components/InputText.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import ErrorMessage from '@/Components/ErrorMessage.vue'
 
 import notyf from '@/Utils/useNotyf'
 import { useForm } from '@inertiajs/vue3'
@@ -91,7 +85,10 @@ export default {
 
   components: {
     Form,
-    Field
+    Field,
+    InputText,
+    InputLabel,
+    ErrorMessage
   },
 
   data() {
