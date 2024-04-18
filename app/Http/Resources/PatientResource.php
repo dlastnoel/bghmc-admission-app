@@ -22,6 +22,7 @@ class PatientResource extends JsonResource
             'lastname' => $this->lastname,
             'suffix' => $this->suffix,
             'date_of_birth' => $this->date_of_birth,
+            'age' => $this->age,
             'address' => $this->address,
             'created_at' => Carbon::parse($this->created_at)->toDateTimeString(),
             'updated_at' => Carbon::parse($this->updated_at)->toDateTimeString(),
