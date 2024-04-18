@@ -6,6 +6,11 @@
     </Link>
   </div>
 
+  <!-- Cards -->
+  <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+    <Card :item="cards[0]" />
+  </div>
+
   <div class="w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
@@ -80,101 +85,7 @@
         </tbody>
       </table>
     </div>
-    <div
-      class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t:border-gray-0"
-    >
-      <!-- <span class="flex items-center col-span-3"> Showing 21-30 of 100 </span>
-      <span class="col-span-2"></span> -->
-
-      <!-- Pagination -->
-      <!-- <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-        <nav aria-label="Table navigation">
-          <ul class="inline-flex items-center">
-            <li>
-              <button
-                class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                aria-label="Previous"
-              >
-                <svg
-                  class="w-4 h-4 fill-current"
-                  aria-hidden="true"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                1
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                2
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 text-white transition-colors duration-150 bg-blue-600 border border-r-0 border-blue-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                3
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                4
-              </button>
-            </li>
-            <li>
-              <span class="px-3 py-1">...</span>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                8
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-              >
-                9
-              </button>
-            </li>
-            <li>
-              <button
-                class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                aria-label="Next"
-              >
-                <svg
-                  class="w-4 h-4 fill-current"
-                  aria-hidden="true"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </span> -->
-    </div>
+    <Pagination :meta="admissions.meta" :partials="['admissions']" />
   </div>
 </template>
 
@@ -182,6 +93,8 @@
 import AuthLayout from '@/Layouts/AuthLayout.vue'
 import PageTitle from '@/Components/PageTitle.vue'
 import ButtonPrimary from '@/Components/ButtonPrimary.vue'
+import Card from '@/Components/Card.vue'
+import Pagination from '@/Components/Pagination.vue'
 
 import { Link } from '@inertiajs/vue3'
 import { displayName } from '@/Helpers/displayHelpers'
@@ -194,18 +107,28 @@ export default {
   components: {
     Link,
     PageTitle,
-    ButtonPrimary
+    ButtonPrimary,
+    Pagination,
+    Card
   },
 
   props: {
     admissions: Object,
     filters: Object,
+    admissions_today: Number,
   },
 
   data() {
 
     return {
-      
+
+      cards: [
+        {
+          title: 'Admissions Today',
+          value: this.admissions_today,
+          svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>'
+        }
+      ]
     }
   },
 

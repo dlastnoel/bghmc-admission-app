@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAdmissionRequest;
 use App\Http\Resources\AdmissionResource;
 use App\Http\Resources\PatientResource;
 use App\Models\Admission;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,12 +20,14 @@ class AdmissionController extends Controller
      */
     public function index(Request $request)
     {
-        $admissions = fn() => AdmissionResource::collection(AdmissionFilter::get());
+        $admissions = fn () => AdmissionResource::collection(AdmissionFilter::get());
+        $admissionsToday = fn () => Admission::whereDate('admitted_at', Carbon::today()->toDateString())->count();
 
-        $filters = fn() => $request->only('patient', 'ward', 'status', 'sort_by', 'direction', 'size');
+        $filters = fn () => $request->only('patient', 'ward', 'status', 'sort_by', 'direction', 'size');
 
         return Inertia::render('App/Admissions/Index', [
             'admissions' => $admissions,
+            'admissions_today' => $admissionsToday,
             'filters' => $filters,
         ]);
     }
@@ -34,7 +37,7 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-        $patients = fn() => PatientResource::collection(PatientQuery::execute(request('id'), request('query')));
+        $patients = fn () => PatientResource::collection(PatientQuery::execute(request('id'), request('query')));
 
         return Inertia::render('App/Admissions/Create', [
             'patients' => $patients
