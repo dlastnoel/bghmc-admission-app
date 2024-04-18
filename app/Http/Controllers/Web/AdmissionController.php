@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\AdmissionFilter;
+use App\Http\Queries\PatientQuery;
 use App\Http\Requests\StoreAdmissionRequest;
 use App\Http\Resources\AdmissionResource;
+use App\Http\Resources\PatientResource;
 use App\Models\Admission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,7 +34,11 @@ class AdmissionController extends Controller
      */
     public function create()
     {
+        $patients = fn() => PatientResource::collection(PatientQuery::execute(request('id'), request('query')));
 
+        return Inertia::render('App/Admissions/Create', [
+            'patients' => $patients
+        ]);
     }
 
     /**
