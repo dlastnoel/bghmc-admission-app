@@ -8,5 +8,9 @@
 
 .notyf__toast {
   border-radius: 7px !important;
-  max-width: 500px !important;
+  max-width: 600px !important;
+}
+
+.notyf__ripple {
+  width: 600px !important;
 }

@@ -25,7 +25,7 @@
                 placeholder="user@bghmc.doh.gov.ph"
                 class="w-full"
                 :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                v-model="field.value"
+                :modelValue="field.value"
               />
               <ErrorMessage :message="errorMessage" />
             </Field>
@@ -46,7 +46,7 @@
                 placeholder="********"
                 class="w-full"
                 :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                v-model="field.value"
+                :modelValue="field.value"
               />
               <ErrorMessage :message="errorMessage" />
             </Field>

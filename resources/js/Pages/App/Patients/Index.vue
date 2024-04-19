@@ -56,7 +56,8 @@
                   </button>
                 </Link>
                 <button
-                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                  @click="setDelete(patient)"
+                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-400 rounded-lg focus:outline-none focus:shadow-outline-gray"
                   aria-label="Delete"
                 >
                   <svg
@@ -80,17 +81,34 @@
     </div>
     <Pagination :meta="patients.meta" :partials="['patients']" />
   </div>
+
+  <Modal
+    v-if="isDeleteModalVisible"
+    title="Delete Patient"
+    :text="`Are you sure you want to delete patient ${
+      selectedPatient ? displayName(selectedPatient) : ''
+    }?`"
+  >
+    <template #footer>
+      <ButtonDanger @click="handleDelete()">Delete</ButtonDanger>
+      <ButtonMuted @click="resetDelete()">Cancel</ButtonMuted>
+    </template>
+  </Modal>
 </template>
 
 <script>
 import AuthLayout from '@/Layouts/AuthLayout.vue'
 import PageTitle from '@/Components/PageTitle.vue'
 import ButtonPrimary from '@/Components/ButtonPrimary.vue'
+import ButtonMuted from '@/Components/ButtonMuted.vue'
+import ButtonDanger from '@/Components/ButtonDanger.vue'
 import Pagination from '@/Components/Pagination.vue'
+import Modal from '@/Components/Modal.vue'
 
-import { Link } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3'
 import { displayName } from '@/Helpers/displayHelpers'
 import moment from 'moment'
+import notyf from '@/Utils/useNotyf'
 
 export default {
 
@@ -100,7 +118,10 @@ export default {
     Link,
     PageTitle,
     ButtonPrimary,
-    Pagination
+    ButtonMuted,
+    ButtonDanger,
+    Pagination,
+    Modal
   },
 
   props: {
@@ -112,6 +133,8 @@ export default {
 
     return {
       
+      isDeleteModalVisible: false,
+      selectedPatient: {},
     }
   },
 
@@ -119,6 +142,30 @@ export default {
 
     displayName,
     moment,
+
+    setDelete(patient) {
+      this.isDeleteModalVisible = true
+      this.selectedPatient = patient
+    },
+
+    resetDelete() {
+      this.isDeleteModalVisible = false
+      this.selectedPatient = {}
+    },
+
+    handleDelete() {
+      router.delete(route('patients.destroy', { patient: this.selectedPatient.id }), {
+
+        preserveState: true,
+        preserveScroll: true,
+        only: ['patients'],
+
+        onSuccess: () => {
+          notyf.toast(`Patient ${displayName(this.selectedPatient)} successfully deleted.`)
+          this.resetDelete()
+        }
+      })
+    }
   }
 }
 </script>

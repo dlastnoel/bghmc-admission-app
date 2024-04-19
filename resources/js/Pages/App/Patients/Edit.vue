@@ -31,7 +31,7 @@
                   placeholder="First Name"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
@@ -54,7 +54,7 @@
                   placeholder="Middle Name"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
@@ -78,7 +78,7 @@
                   placeholder="Last Name"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
@@ -101,7 +101,7 @@
                   placeholder="Suffix"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
@@ -125,7 +125,7 @@
                   :max="moment().format('YYYY-MM-DD')"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
@@ -149,7 +149,7 @@
                   placeholder="Address"
                   class="w-full"
                   :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                  v-model="field.value"
+                  :modelValue="field.value"
                 />
                 <ErrorMessage :message="errorMessage" />
               </Field>
