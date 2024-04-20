@@ -8,9 +8,11 @@ interface Executable
 {
     /**
      * Filters data using queries received from request.
+     * 
      * This will be used as a sub-filter alongside filters.
      * 
-     * @param  string
+     * @param string $primary
+     * @param string $context
      */
-    public static function execute($primary, $context): Collection;
+    public static function execute(?string $primary, ?string $context): Collection;
 }

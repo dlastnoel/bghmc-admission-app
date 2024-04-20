@@ -3,36 +3,6 @@
     class="flex h-screen bg-gray-50"
     :class="{ 'overflow-hidden': isSideMenuOpen }"
   >
-    <!-- <aside
-      class="z-20 hidden md:w-56 w-64 overflow-y-auto bg-white md:block flex-shrink-0 shadow"
-    >
-      <div class="py-4 text-gray-500">
-        <h1 class="ml-6 text-lg font-bold text-gray-800">
-          <span class="text-blue-600">Admission</span> App
-        </h1>
-        <ul class="mt-6">
-          <li
-            class="relative px-3"
-            v-for="(sidebarLink, i) in sidebarLinks"
-            :key="i"
-          >
-            <Link
-              :href="route(sidebarLink.route)"
-              class="rounded-lg mt-4 px-5 py-3 inline-flex items-center w-full text-md font-semibold transition-all duration-100 hover:bg-blue-600 hover:text-white"
-              :class="
-                isRouteActive(sidebarLink.active)
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-800'
-              "
-            >
-              <span v-html="sidebarLink.svg"></span>
-              <span class="ml-4">{{ sidebarLink.title }}</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </aside> -->
-
     <SidebarDesktop :sidebarLinks="sidebarLinks" />
 
     <SidebarMobile
@@ -43,26 +13,14 @@
     <div class="flex flex-col flex-1 w-full">
       <header class="z-10 py-4 bg-white shadow">
         <div
-          class="container flex items-center justify-between h-full px-3 mx-auto text-blue-600"
+          class="container flex items-center justify-between h-full px-3 mx-auto text-blue-400"
         >
-          <!-- Mobile hamburger -->
           <button
             @click="isSidebarForMobileVisible = !isSidebarForMobileVisible"
             class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
             aria-label="Menu"
           >
-            <svg
-              class="w-6 h-6"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <Bars3Icon class="w-6 h-6" />
           </button>
           <div class="flex justify-center flex-1 lg:mr-32">
             <div
@@ -99,7 +57,7 @@
 import SidebarMobile from '@/Components/SidebarMobile.vue'
 import SidebarDesktop from '@/Components/SidebarDesktop.vue'
 
-import { ArrowRightEndOnRectangleIcon } from '@heroicons/vue/24/solid'
+import { ArrowRightEndOnRectangleIcon, Bars3Icon } from '@heroicons/vue/24/solid'
 
 import { Link, router } from '@inertiajs/vue3'
 import { isRouteActive } from '@/Utils/routeUtils'
@@ -113,6 +71,7 @@ export default {
     SidebarDesktop,
 
     ArrowRightEndOnRectangleIcon,
+    Bars3Icon
   },
 
   data() {

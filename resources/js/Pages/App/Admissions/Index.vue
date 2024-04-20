@@ -113,39 +113,12 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">
-                <!-- <Link
-                  :href="route('admissions.edit', { admission: admission.id })"
-                >
-                  <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                      ></path>
-                    </svg>
-                  </button>
-                </Link> -->
                 <button
                   v-if="!admission.discharged_at"
                   @click="setDischarge(admission)"
-                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-pink-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      d="M12 1.5a.75.75 0 0 1 .75.75V7.5h-1.5V2.25A.75.75 0 0 1 12 1.5ZM11.25 7.5v5.69l-1.72-1.72a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 1 0-1.06-1.06l-1.72 1.72V7.5h3.75a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h3.75Z"
-                    />
-                  </svg>
+                  <ArchiveBoxXMarkIcon class="w-5 h-5" />
                 </button>
               </div>
             </td>
@@ -182,6 +155,8 @@ import AdmissionStatusChip from '@/Components/AdmissionStatusChip.vue'
 import Modal from '@/Components/Modal.vue'
 import InputText from '@/Components/InputText.vue'
 
+import { ArchiveBoxXMarkIcon } from '@heroicons/vue/24/solid'
+
 import { Link, useForm, router } from '@inertiajs/vue3'
 import { displayName } from '@/Helpers/displayHelpers'
 import notyf from '@/Utils/useNotyf'
@@ -202,7 +177,9 @@ export default {
     Card,
     AdmissionStatusChip,
     Modal,
-    InputText
+    InputText,
+
+    ArchiveBoxXMarkIcon
   },
 
   props: {

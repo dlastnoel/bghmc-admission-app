@@ -29,10 +29,29 @@ Route::controller(AuthenticationController::class)->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    // patients resource
-    Route::resource('/patients', PatientController::class);
+    // patients
+    Route::controller(PatientController::class)->group(function () {
 
-    // admission
+        Route::get('/patients', 'index')
+            ->name('patients.index');
+
+        Route::get('/patients/create', 'create')
+            ->name('patients.create');
+
+        Route::post('/patients', 'store')
+            ->name('patients.store');
+
+        Route::get('/patients/{patient}/edit', 'edit')
+            ->name('patients.edit');
+
+        Route::put('/patients/{patient}', 'update')
+            ->name('patients.update');
+
+        Route::delete('/patients/{patient}', 'destroy')
+            ->name('patients.destroy');
+    });
+
+    // admissions
     Route::controller(AdmissionController::class)->group(function () {
 
         Route::get('/admissions', 'index')

@@ -38,8 +38,6 @@ class PatientQuery implements Executable
                 ->get();
         }
 
-        // dd($patients);
-
         return $patients;
     }
 }

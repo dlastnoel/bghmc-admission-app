@@ -223,7 +223,7 @@ export default {
 
     handleSubmit(values, actions) {
 
-      this.form.put(route('patients.store', { patient: this.form.id }), {
+      this.form.put(route('patients.update', { patient: this.form.id }), {
 
         preserveState: true,
         preserveScroll: true,

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -13,6 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect()->route('auth.create');
+        if (Auth::check()) {
+            return Redirect::route('admissions.index');
+        }
+        return Redirect::route('auth.create');
     }
 }

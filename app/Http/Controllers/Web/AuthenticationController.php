@@ -16,6 +16,10 @@ class AuthenticationController extends Controller
      */
     public function create()
     {
+        if (Auth::check()) {
+            return Redirect::route('admissions.index');
+        }
+
         return Inertia::render('Auth/Create');
     }
 
@@ -31,8 +35,8 @@ class AuthenticationController extends Controller
             return Redirect::intended(route('admissions.index'));
         }
 
-        return back()->withErrors([
-            '419' => 'Invalid credentials.'
+        return Redirect::back()->withErrors([
+            '401' => 'Invalid credentials.'
         ]);
     }
 
