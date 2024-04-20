@@ -6,7 +6,43 @@
     </Link>
   </div>
 
-  <div class="w-full overflow-hidden rounded-lg shadow-xs">
+  <!-- <div class="w-full flex justify-between items-center">
+    <div>
+      <InputLabel for="query" class="block">Search</InputLabel>
+      <InputText v-model="filterForm.query"></InputText>
+    </div>
+  </div> -->
+  <div class="w-full flex justify-between items-center">
+    <div>
+      <InputText v-model="filterForm.query" placeholder="Search"></InputText>
+    </div>
+    <div class="flex justify-end items-center relative gap-3">
+      <select
+        v-model="filterForm.sort_by"
+        class="rounded-md border-grey-300 py-3 text-sm"
+      >
+        <option value="Date Created">Date Created</option>
+        <option value="Name">Name</option>
+      </select>
+      <select
+        v-model="filterForm.direction"
+        class="rounded-md border-grey-300 py-3 text-sm"
+      >
+        <option value="Ascending">Ascending</option>
+        <option value="Descending">Descending</option>
+      </select>
+      <select
+        v-model="filterForm.size"
+        class="rounded-md border-grey-300 py-3 text-sm"
+      >
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-5 w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <thead>
@@ -104,10 +140,13 @@ import ButtonMuted from '@/Components/ButtonMuted.vue'
 import ButtonDanger from '@/Components/ButtonDanger.vue'
 import Pagination from '@/Components/Pagination.vue'
 import Modal from '@/Components/Modal.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import InputText from '@/Components/InputText.vue'
 
 import { Link, router } from '@inertiajs/vue3'
-import { displayName } from '@/Helpers/displayHelpers'
 import moment from 'moment'
+import debounce from 'lodash/debounce'
+import { displayName } from '@/Helpers/displayHelpers'
 import notyf from '@/Utils/useNotyf'
 
 export default {
@@ -121,7 +160,9 @@ export default {
     ButtonMuted,
     ButtonDanger,
     Pagination,
-    Modal
+    Modal,
+    InputText,
+    InputLabel
   },
 
   props: {
@@ -135,6 +176,22 @@ export default {
       
       isDeleteModalVisible: false,
       selectedPatient: {},
+
+      filterForm: {
+        query: this.filters.query,
+        sort_by: this.filters.sort_by ?? 'Date Created',
+        direction: this.filters.direction ?? 'Descending',
+        size: this.filters.size ?? 10,
+      },
+    }
+  },
+
+  watch: {
+    filterForm: {
+      deep: true,
+      handler: debounce(function () {
+        this.handleFilter()
+      }, 1000)
     }
   },
 
@@ -164,6 +221,16 @@ export default {
           notyf.toast(`Patient ${displayName(this.selectedPatient)} successfully deleted.`)
           this.resetDelete()
         }
+      })
+    },
+
+    handleFilter() {
+
+      router.get(route('patients.index'), this.filterForm, {
+
+        preserveState: true,
+        preserveScroll: true,
+        only: ['patients'],
       })
     }
   }

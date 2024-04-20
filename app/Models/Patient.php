@@ -7,6 +7,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Patient extends Model
 {
@@ -33,6 +34,9 @@ class Patient extends Model
 
     public function scopeFilter($query, $context): Builder
     {
-        return $query->whereAny(['firstname', 'middlename', 'lastname', 'suffix'], 'LIKE', '%' . $context . '%');
+        return $query
+            ->whereAny(['firstname', 'middlename', 'lastname', 'suffix'], 'LIKE', '%' . $context . '%')
+            ->orWhere(DB::raw('CONCAT(firstname," ",middlename, " ", lastname)'), 'LIKE', '%' . $context . '%')
+            ->orWhere(DB::raw('CONCAT(firstname," ",lastname)'), 'LIKE', '%' . $context . '%');
     }
 }

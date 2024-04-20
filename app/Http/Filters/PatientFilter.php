@@ -20,11 +20,11 @@ class PatientFilter implements Filterable
 
             switch (request('sort_by')) {
 
-                case 'Last Name':
+                case 'Name':
                     $sortBy = ['lastname', 'firstname', 'middlename'];
                     break;
 
-                case 'Creation Date':
+                case 'Date Created':
                     $sortBy = ['created_at'];
                     break;
             }
