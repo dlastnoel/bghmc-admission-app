@@ -30,7 +30,7 @@
               <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
-          <div class="mt-7">
+          <div class="mt-7 relative">
             <InputLabel :label="password">Password</InputLabel>
             <Field
               v-slot="{ field, errorMessage }"
@@ -42,12 +42,19 @@
               <InputText
                 v-bind="field"
                 name="password"
-                type="password"
+                :type="isPasswordVisible ? 'text' : 'password'"
                 placeholder="********"
                 class="w-full"
                 :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
                 :modelValue="field.value"
               />
+              <button
+                @click.prevent="isPasswordVisible = !isPasswordVisible"
+                class="absolute top-11 right-4 hover:cursor-pointer"
+              >
+                <EyeIcon v-if="isPasswordVisible" class="w-5 h-5 text-black" />
+                <EyeSlashIcon v-else class="w-5 h-5 text-black" />
+              </button>
               <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
@@ -77,6 +84,8 @@ import InputText from '@/Components/InputText.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import ErrorMessage from '@/Components/ErrorMessage.vue'
 
+import { EyeIcon, EyeSlashIcon } from  '@heroicons/vue/24/solid'
+
 import notyf from '@/Utils/useNotyf'
 import { useForm } from '@inertiajs/vue3'
 import svg from '../../../images/login.svg'
@@ -88,7 +97,10 @@ export default {
     Field,
     InputText,
     InputLabel,
-    ErrorMessage
+    ErrorMessage,
+
+    EyeIcon,
+    EyeSlashIcon
   },
 
   data() {
