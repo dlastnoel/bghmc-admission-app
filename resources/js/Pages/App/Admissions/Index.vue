@@ -19,7 +19,7 @@
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-blue-100"
           >
             <th class="px-4 py-3">Patient</th>
-            <th class="px-4 py-3">Date of Birth</th>
+            <th class="px-4 py-3">Ward</th>
             <th class="px-4 py-3">Status</th>
             <th class="px-4 py-3">Admitted at</th>
             <th class="px-4 py-3">Discharged at</th>
@@ -43,7 +43,7 @@
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              {{ admission.patient.date_of_birth }}
+              {{ admission.ward }}
             </td>
             <td class="px-4 py-3">
               <AdmissionStatusChip :admission="admission" />

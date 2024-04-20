@@ -14,26 +14,30 @@
   </div> -->
   <div class="w-full flex justify-between items-center">
     <div>
-      <InputText v-model="filterForm.query" placeholder="Search"></InputText>
+      <InputText
+        v-model="filterForm.query"
+        placeholder="Search"
+        class="border-gray-300"
+      ></InputText>
     </div>
     <div class="flex justify-end items-center relative gap-3">
       <select
         v-model="filterForm.sort_by"
-        class="rounded-md border-grey-300 py-3 text-sm"
+        class="rounded-md border-gray-300 py-3 text-sm"
       >
         <option value="Date Created">Date Created</option>
         <option value="Name">Name</option>
       </select>
       <select
         v-model="filterForm.direction"
-        class="rounded-md border-grey-300 py-3 text-sm"
+        class="rounded-md border-gray-300 py-3 text-sm"
       >
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </select>
       <select
         v-model="filterForm.size"
-        class="rounded-md border-grey-300 py-3 text-sm"
+        class="rounded-md border-gray-300 py-3 text-sm"
       >
         <option value="10">10</option>
         <option value="20">20</option>
@@ -142,6 +146,7 @@ import Pagination from '@/Components/Pagination.vue'
 import Modal from '@/Components/Modal.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import InputText from '@/Components/InputText.vue'
+import { UserIcon } from '@heroicons/vue/24/outline'
 
 import { Link, router } from '@inertiajs/vue3'
 import moment from 'moment'
@@ -162,7 +167,9 @@ export default {
     Pagination,
     Modal,
     InputText,
-    InputLabel
+    InputLabel,
+
+    UserIcon
   },
 
   props: {
