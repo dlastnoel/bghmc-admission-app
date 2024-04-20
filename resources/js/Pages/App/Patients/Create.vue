@@ -10,8 +10,8 @@
   >
     <Form @submit="handleSubmit">
       <FormBody>
-        <div class="grid w-full grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-3">
+        <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="firstname">First Name</InputLabel>
             <div class="mt-2">
               <Field
@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="middlename">Middle Name</InputLabel>
             <div class="mt-2">
               <Field
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="lastname">Last Name</InputLabel>
             <div class="mt-2">
               <Field
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="suffix">Suffix</InputLabel>
             <div class="mt-2">
               <Field
@@ -105,7 +105,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-4">
+          <div class="col-span-12">
             <InputLabel label="date_of_birth">Date of Birth</InputLabel>
             <div class="mt-2">
               <Field
@@ -129,7 +129,7 @@
             </div>
           </div>
 
-          <div class="col-span-full">
+          <div class="col-span-12">
             <InputLabel label="address">Address</InputLabel>
             <div class="mt-2">
               <Field

@@ -8,14 +8,11 @@
     description="This information will be displayed publicly so be careful what you
           share."
   >
-    <Form
-      @submit="handleSubmit"
-      class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
-    >
-      <div class="px-4 py-6 sm:p-8">
-        <div class="grid w-full grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-3">
-            <InputLabel label="firstname">Firs Name</InputLabel>
+    <Form @submit="handleSubmit">
+      <FormBody>
+        <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <div class="col-span-12 md:col-span-6">
+            <InputLabel label="firstname">First Name</InputLabel>
             <div class="mt-2">
               <Field
                 v-slot="{ field, errorMessage }"
@@ -38,7 +35,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="middlename">Middle Name</InputLabel>
             <div class="mt-2">
               <Field
@@ -61,7 +58,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="lastname">Last Name</InputLabel>
             <div class="mt-2">
               <Field
@@ -85,7 +82,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-3">
+          <div class="col-span-12 md:col-span-6">
             <InputLabel label="suffix">Suffix</InputLabel>
             <div class="mt-2">
               <Field
@@ -108,7 +105,7 @@
             </div>
           </div>
 
-          <div class="sm:col-span-4">
+          <div class="col-span-12">
             <InputLabel label="date_of_birth">Date of Birth</InputLabel>
             <div class="mt-2">
               <Field
@@ -132,7 +129,7 @@
             </div>
           </div>
 
-          <div class="col-span-full">
+          <div class="col-span-12">
             <InputLabel label="address">Address</InputLabel>
             <div class="mt-2">
               <Field
@@ -156,12 +153,12 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="flex items-center justify-end gap-x-6 px-4 py-4 sm:px-8">
+      </FormBody>
+      <FormFooter>
         <ButtonPrimary type="submit" :disabled="form.processing">
           Update
         </ButtonPrimary>
-      </div>
+      </FormFooter>
     </Form>
   </FormWrapper>
 </template>
@@ -171,6 +168,8 @@ import AuthLayout from '@/Layouts/AuthLayout.vue'
 import PageTitle from '@/Components/PageTitle.vue'
 import ButtonPrimary from '@/Components/ButtonPrimary.vue'
 import FormWrapper from '@/Components/FormWrapper.vue'
+import FormBody from '@/Components/FormBody.vue'
+import FormFooter from '@/Components/FormFooter.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import InputText from '@/Components/InputText.vue'
 import ErrorMessage from '@/Components/ErrorMessage.vue'
@@ -190,6 +189,8 @@ export default {
     PageTitle,
     ButtonPrimary,
     FormWrapper,
+    FormBody,
+    FormFooter,
     InputLabel,
     InputText,
     ErrorMessage

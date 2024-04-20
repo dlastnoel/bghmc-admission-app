@@ -6,32 +6,37 @@
     </Link>
   </div>
 
-  <div class="w-full flex justify-between items-center">
-    <div>
+  <div
+    class="w-full flex flex-col md:flex-row justify-between items-center gap-3"
+  >
+    <div class="w-full md:w-auto">
       <InputText
         v-model="filterForm.query"
         placeholder="Search"
-        class="border-gray-300"
-      ></InputText>
+        class="border-gray-300 w-full md:w-auto"
+      >
+      </InputText>
     </div>
-    <div class="flex justify-end items-center relative gap-3">
+    <div
+      class="flex w-full md:w-auto flex-col md:flex-row justify-end items-center relative gap-3"
+    >
       <select
         v-model="filterForm.sort_by"
-        class="rounded-md border-gray-300 py-3 text-sm"
+        class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
       >
         <option value="Date Created">Date Created</option>
         <option value="Name">Name</option>
       </select>
       <select
         v-model="filterForm.direction"
-        class="rounded-md border-gray-300 py-3 text-sm"
+        class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
       >
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </select>
       <select
         v-model="filterForm.size"
-        class="rounded-md border-gray-300 py-3 text-sm"
+        class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
       >
         <option value="10">10</option>
         <option value="20">20</option>

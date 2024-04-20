@@ -1,13 +1,12 @@
 <template>
   <div
     v-if="meta.links.length > 3"
-    class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9"
+    class="flex flex-col justify-start items-start md:flex-row md:justify-between md:items-center px-4 py-3 text-xs md:text-sm font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 gap-2"
   >
-    <span class="flex items-center col-span-3">
+    <div class="col-span-3">
       Showing {{ meta.from }} - {{ meta.to }} of
       {{ meta.total }}
-    </span>
-    <span class="col-span-2"></span>
+    </div>
     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
       <nav>
         <ul class="inline-flex items-center">
