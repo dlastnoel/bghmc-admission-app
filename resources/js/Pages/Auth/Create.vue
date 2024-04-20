@@ -117,7 +117,7 @@ export default {
       svg,
 
       form: useForm({
-        email: 'johndoe@example.com',
+        email: 'useradmin@example.com',
         password: 'password'
       }),
 
