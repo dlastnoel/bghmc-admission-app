@@ -175,7 +175,16 @@ export default {
       selectedAdmission: {},
       dischargeForm: useForm({
         id: ''
-      })
+      }),
+
+      filterForm: {
+        patient: this.filters.patient,
+        ward: this.filters.ward,
+        status: this.filters.status ?? 'All',
+        sort_by: this.filters.sort_by ?? 'Admitted At',
+        direction: this.filters.direction ?? 'Ascending',
+        size: this.filters.size ?? 10
+      }
     }
   },
 
