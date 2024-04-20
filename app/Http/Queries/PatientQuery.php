@@ -15,7 +15,11 @@ class PatientQuery implements Executable
 
         if ($primary || $context) {
 
-            $patients = Patient::query()
+            $patients = Patient::whereDoesntHave('admissions', function ($query) {
+
+                $query->whereNull('discharged_at');
+            })
+
 
                 ->when($primary && !$context, function ($query) use ($primary) {
 

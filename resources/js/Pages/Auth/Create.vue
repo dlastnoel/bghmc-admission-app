@@ -1,11 +1,18 @@
 <template>
-  <main class="grid grid-cols-2 h-screen w-full">
+  <main class="grid grid-cols-1 lg:grid-cols-2 h-screen w-full">
     <!-- left login -->
     <div class="grid place-content-center w-full">
+      <img
+        :src="svg"
+        alt="Admission App"
+        class="lg:hidden w-72 md:w-96 mb-5 m-auto"
+      />
       <h1 class="text-4xl font-medium text-center">
         <span class="text-blue-600">Admission</span> App
       </h1>
-      <div class="rounded-lg shadow border border-grey-50 p-8 mt-5 w-[450px]">
+      <div
+        class="rounded-lg shadow border border-grey-50 p-8 mt-5 w-[400px] md:w-[450px]"
+      >
         <h5 class="text-xl font-medium">Welcome back!</h5>
         <p class="text-sm text-gray-400 mt-3">Login to access your account.</p>
         <Form @submit="handleSubmit">
@@ -72,7 +79,7 @@
     </div>
 
     <!-- right image -->
-    <div class="grid place-content-center bg-gray-100 w-full">
+    <div class="hidden lg:grid place-content-center bg-gray-100 w-full">
       <img :src="svg" alt="Admission App" class="w-96" />
     </div>
   </main>

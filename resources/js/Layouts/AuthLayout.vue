@@ -5,7 +5,7 @@
   >
     <!-- Desktop sidebar -->
     <aside
-      class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0 shadow"
+      class="z-20 hidden md:w-56 w-64 overflow-y-auto bg-white md:block flex-shrink-0 shadow"
     >
       <div class="py-4 text-gray-500">
         <h1 class="ml-6 text-lg font-bold text-gray-800">
@@ -557,7 +557,7 @@
       </header>
 
       <!-- MAIN -->
-      <main class="h-full overflow-y-auto">
+      <main class="h-full overflow-y-auto pb-10">
         <div class="container px-6 mx-auto grid">
           <slot />
         </div>
