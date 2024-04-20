@@ -144,13 +144,13 @@ export default {
     moment,
 
     setDelete(patient) {
-      this.isDeleteModalVisible = true
       this.selectedPatient = patient
+      this.isDeleteModalVisible = true
     },
 
     resetDelete() {
-      this.isDeleteModalVisible = false
       this.selectedPatient = {}
+      this.isDeleteModalVisible = false
     },
 
     handleDelete() {

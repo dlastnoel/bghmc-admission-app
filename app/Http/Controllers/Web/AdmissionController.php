@@ -37,6 +37,7 @@ class AdmissionController extends Controller
      */
     public function create()
     {
+
         $patients = fn () => PatientResource::collection(PatientQuery::execute(request('id'), request('query')));
 
         return Inertia::render('App/Admissions/Create', [
@@ -49,7 +50,10 @@ class AdmissionController extends Controller
      */
     public function store(StoreAdmissionRequest $request)
     {
-        $admission = Admission::create($request->validated());
+        Admission::create([
+            ...$request->validated(),
+            'admitted_at' => Carbon::now()
+        ]);
 
         return redirect()->route('admissions.index');
     }

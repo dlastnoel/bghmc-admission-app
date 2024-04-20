@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PatientController extends Controller
@@ -18,9 +19,9 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
-        $patients = fn() => PatientResource::collection(PatientFilter::get());
+        $patients = fn () => PatientResource::collection(PatientFilter::get());
 
-        $filters = fn() => $request->only('query', 'sort_by', 'direction', 'size');
+        $filters = fn () => $request->only('query', 'sort_by', 'direction', 'size');
 
         return Inertia::render('App/Patients/Index', [
             'patients' => $patients,
@@ -43,7 +44,7 @@ class PatientController extends Controller
     {
         Patient::create($request->validated());
 
-        return redirect()->route('patients.index');
+        return Redirect::route('patients.index');
     }
 
     /**
@@ -51,7 +52,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        $patient = fn() => new PatientResource($patient->load('admissions'));
+        $patient = fn () => new PatientResource($patient->load('admissions'));
     }
 
     /**
@@ -59,7 +60,7 @@ class PatientController extends Controller
      */
     public function edit(Patient $patient)
     {
-        $patient = fn() => new PatientResource($patient);
+        $patient = fn () => new PatientResource($patient);
 
         return Inertia::render('App/Patients/Edit', [
             'patient' => $patient
@@ -73,7 +74,7 @@ class PatientController extends Controller
     {
         $patient->update($request->validated());
 
-        return redirect()->route('patients.index');
+        return Redirect::route('patients.index');
     }
 
     /**
@@ -83,6 +84,6 @@ class PatientController extends Controller
     {
         $patient->delete();
 
-        return redirect()->back();
+        return Redirect::back();
     }
 }

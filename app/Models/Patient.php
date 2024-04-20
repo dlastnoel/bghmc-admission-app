@@ -33,6 +33,6 @@ class Patient extends Model
 
     public function scopeFilter($query, $context): Builder
     {
-        return $query->whereAny(['firstname', 'middlename', 'lastname', 'name_extension', 'contact_no', 'username'], 'LIKE', '%' . $context . '%');
+        return $query->whereAny(['firstname', 'middlename', 'lastname', 'suffix'], 'LIKE', '%' . $context . '%');
     }
 }

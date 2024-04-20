@@ -23,7 +23,6 @@ class PatientQuery implements Executable
                 })
 
                 ->when($context && !$primary, function ($query) use ($context) {
-
                     $query->filter($context);
                 })
 
@@ -34,6 +33,8 @@ class PatientQuery implements Executable
                 ->limit(5)
                 ->get();
         }
+
+        // dd($patients);
 
         return $patients;
     }
