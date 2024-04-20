@@ -22,13 +22,14 @@ Route::controller(AuthenticationController::class)->group(function () {
         ->name('auth.store');
 
     Route::delete('/logout', 'destroy')
-        ->name('auth.destroy');
+        ->name('auth.destroy')
+        ->middleware(['auth']);
 });
 
 
 Route::middleware(['auth'])->group(function () {
 
-    // patients
+    // patients resource
     Route::resource('/patients', PatientController::class);
 
     // admission
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admissions', 'index')
             ->name('admissions.index');
 
-        Route::get('/admissions/create', 'create')
+        Route::match(['get', 'post'], '/admissions/create', 'create')
             ->name('admissions.create');
 
         Route::post('/admissions', 'store')

@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center">
     <PageTitle title="Admissions" />
     <Link :href="route('admissions.create')">
-      <ButtonPrimary>Admin a Patient</ButtonPrimary>
+      <ButtonPrimary>Admit</ButtonPrimary>
     </Link>
   </div>
 
@@ -83,6 +83,7 @@
                   </button>
                 </Link> -->
                 <button
+                  v-if="!admission.discharged_at"
                   @click="setDischarge(admission)"
                   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 >

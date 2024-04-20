@@ -22,6 +22,7 @@
                 :modelValue="field.value"
                 :patients="patients"
                 :filterRoute="route('admissions.create')"
+                :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
                 :partials="['patients']"
               />
               <ErrorMessage :message="errorMessage" />

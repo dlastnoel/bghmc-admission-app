@@ -21,7 +21,8 @@ class AdmissionController extends Controller
     public function index(Request $request)
     {
         $admissions = fn () => AdmissionResource::collection(AdmissionFilter::get());
-        $admissionsToday = fn () => Admission::whereDate('admitted_at', Carbon::today()->toDateString())->count();
+        $admissionsToday = fn () => Admission::whereDate('admitted_at', Carbon::today())
+            ->whereNull('discharged_at')->count();
 
         $filters = fn () => $request->only('patient', 'ward', 'status', 'sort_by', 'direction', 'size');
 
@@ -56,37 +57,5 @@ class AdmissionController extends Controller
         ]);
 
         return redirect()->route('admissions.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
