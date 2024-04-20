@@ -11,9 +11,7 @@ class AdmissionFilter implements Filterable
 
     public static function get(): LengthAwarePaginator
     {
-
-        $sortBy = 'admitted_at';
-        $direction = request('direction') && request('direction') === 'Ascending' ? 'ASC' : 'DESC';
+        $direction = request('direction') && request('direction') === 'Latest' ? 'ASC' : 'DESC';
 
         $admissions = Admission::with('patient')
 
@@ -27,7 +25,7 @@ class AdmissionFilter implements Filterable
 
             ->when(request('ward'), function ($query) {
 
-                $query->where('ward', 'LIKE', '%', request('ward') . '%');
+                $query->where('ward', 'LIKE', '%' . request('ward') . '%');
             })
 
             ->when(request('status') && request('status') !== 'All', function ($query) {
@@ -41,11 +39,10 @@ class AdmissionFilter implements Filterable
                 }
             })
 
-            ->orderBy($sortBy, $direction)
+            ->orderBy('admitted_at', $direction)
             ->paginate(request('size', 10))
             ->withQueryString();
 
         return $admissions;
     }
-
 }

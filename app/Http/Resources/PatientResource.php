@@ -28,6 +28,7 @@ class PatientResource extends JsonResource
             'updated_at' => Carbon::parse($this->updated_at)->toDateTimeString(),
 
             'admissions' => AdmissionResource::collection($this->whenLoaded('admissions')),
+            'admission_count' => $this->whenCounted('admissions')
         ];
     }
 }

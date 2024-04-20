@@ -21,7 +21,7 @@ class PatientFilter implements Filterable
             switch (request('sort_by')) {
 
                 case 'Name':
-                    $sortBy = ['lastname', 'firstname', 'middlename'];
+                    $sortBy = ['firstname', 'middlename'];
                     break;
 
                 case 'Date Created':
@@ -30,7 +30,10 @@ class PatientFilter implements Filterable
             }
         }
 
-        $patients = Patient::query()
+        $patients = Patient::withCount(['admissions' => function ($query) {
+
+            $query->whereNull('discharged_at');
+        }])
 
             ->when(request('query'), function ($query) {
 

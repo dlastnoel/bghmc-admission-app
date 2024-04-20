@@ -38,8 +38,7 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-
-        $patients = fn () => PatientResource::collection(PatientQuery::execute(request('id'), request('query')));
+        $patients = fn () => PatientResource::collection(PatientQuery::execute(request('patient_id'), request('query')));
 
         return Inertia::render('App/Admissions/Create', [
             'patients' => $patients

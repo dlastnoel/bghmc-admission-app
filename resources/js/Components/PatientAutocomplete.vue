@@ -17,10 +17,6 @@
         <ComboboxButton
           class="absolute inset-y-0 right-0 flex patients-center pr-2"
         >
-          <!-- <ChevronUpDownIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            /> -->
         </ComboboxButton>
       </div>
       <TransitionRoot

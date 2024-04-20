@@ -11,7 +11,51 @@
     <Card :item="cards[0]" />
   </div>
 
-  <div class="w-full overflow-hidden rounded-lg shadow-xs">
+  <div class="w-full flex justify-between items-center">
+    <div class="flex justify-start items-center gap-3">
+      <div>
+        <InputText
+          v-model="filterForm.patient"
+          placeholder="Patient"
+          class="border-gray-300"
+        ></InputText>
+      </div>
+      <div>
+        <InputText
+          v-model="filterForm.ward"
+          placeholder="Ward"
+          class="border-gray-300"
+        ></InputText>
+      </div>
+    </div>
+    <div class="flex justify-end items-center gap-3">
+      <select
+        v-model="filterForm.status"
+        class="rounded-md border-gray-300 py-3 text-sm"
+      >
+        <option value="All">All</option>
+        <option value="Admitted">Admitted</option>
+        <option value="Discharged">Discharged</option>
+      </select>
+      <select
+        v-model="filterForm.direction"
+        class="rounded-md border-gray-300 py-3 text-sm"
+      >
+        <option value="Latest">Latest</option>
+        <option value="Oldest">Oldest</option>
+      </select>
+      <select
+        v-model="filterForm.size"
+        class="rounded-md border-gray-300 py-3 text-sm"
+      >
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-5 w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <thead>
@@ -131,11 +175,13 @@ import Card from '@/Components/Card.vue'
 import Pagination from '@/Components/Pagination.vue'
 import AdmissionStatusChip from '@/Components/AdmissionStatusChip.vue'
 import Modal from '@/Components/Modal.vue'
+import InputText from '@/Components/InputText.vue'
 
-import { Link, useForm } from '@inertiajs/vue3'
+import { Link, useForm, router } from '@inertiajs/vue3'
 import { displayName } from '@/Helpers/displayHelpers'
 import notyf from '@/Utils/useNotyf'
 import moment from 'moment'
+import debounce from 'lodash/debounce'
 
 export default {
 
@@ -150,7 +196,8 @@ export default {
     Pagination,
     Card,
     AdmissionStatusChip,
-    Modal
+    Modal,
+    InputText
   },
 
   props: {
@@ -181,10 +228,19 @@ export default {
         patient: this.filters.patient,
         ward: this.filters.ward,
         status: this.filters.status ?? 'All',
-        sort_by: this.filters.sort_by ?? 'Admitted At',
-        direction: this.filters.direction ?? 'Ascending',
+        direction: this.filters.direction ?? 'Latest',
         size: this.filters.size ?? 10
       }
+    }
+  },
+  
+  watch: {
+
+    filterForm: {
+      deep: true,
+      handler: debounce(function() {
+        this.handleFilter()
+      }, 1000)
     }
   },
 
@@ -217,6 +273,16 @@ export default {
           notyf.toast(`Admission of ${displayName(this.selectedAdmission.patient)} discharged successfully.`)
           this.resetDischarge()
         }
+      })
+    },
+
+    handleFilter() {
+
+      router.get(route('admissions.index'), this.filterForm , {
+        
+        preserveState: true,
+        preserveScroll: true,
+        only: ['admissions']
       })
     }
   }

@@ -103,11 +103,9 @@ export default {
     return {
 
       form: useForm({
-        patient_id: '',
+        patient_id: this.patients.data.length ? this.patients.data[0] : '',
         ward: ''
       }),
-
-      patientQuery: '',
     }
   },
 
