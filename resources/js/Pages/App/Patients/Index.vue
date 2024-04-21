@@ -60,51 +60,54 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
-          <tr
-            class="text-gray-700"
-            v-for="(patient, i) in patients.data"
-            :key="i"
-          >
-            <td class="px-4 py-3">
-              <div>
-                <p class="font-semibold">{{ displayName(patient) }}</p>
-                <p class="text-xs text-gray-600">{{ patient.age }} yrs old</p>
-              </div>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              {{ moment(patient.date_of_birth).format("YYYY-MM-DD") }}
-            </td>
-            <td class="px-4 py-3 text-sm">
-              {{ patient.address }}
-            </td>
-            <td class="py-3">
-              <button
-                @click="handleAdmitPatient(patient)"
-                v-if="!patient.admission_count"
-                class="flex items-center justify-between px-2 py-2 text-sm leading-5 text-green-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
-              >
-                <UserPlusIcon class="w-5 h-5" />
-              </button>
-            </td>
-            <td class="px-4 py-3">
-              <div class="flex justify-center items-center text-sm gap-2">
-                <Link :href="route('patients.edit', { patient: patient.id })">
-                  <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                  >
-                    <PencilIcon class="w-5 h-5" />
-                  </button>
-                </Link>
+          <template v-if="patients.data.length">
+            <tr
+              class="text-gray-700"
+              v-for="(patient, i) in patients.data"
+              :key="i"
+            >
+              <td class="px-4 py-3">
+                <div>
+                  <p class="font-semibold">{{ displayName(patient) }}</p>
+                  <p class="text-xs text-gray-600">{{ patient.age }} yrs old</p>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-sm">
+                {{ moment(patient.date_of_birth).format("YYYY-MM-DD") }}
+              </td>
+              <td class="px-4 py-3 text-sm">
+                {{ patient.address }}
+              </td>
+              <td class="py-3">
                 <button
-                  @click="setDelete(patient)"
-                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-400 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                  aria-label="Delete"
+                  @click="handleAdmitPatient(patient)"
+                  v-if="!patient.admission_count"
+                  class="flex items-center justify-between px-2 py-2 text-sm leading-5 text-green-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 >
-                  <TrashIcon class="w-5 h-5" />
+                  <UserPlusIcon class="w-5 h-5" />
                 </button>
-              </div>
-            </td>
-          </tr>
+              </td>
+              <td class="px-4 py-3">
+                <div class="flex justify-center items-center text-sm gap-2">
+                  <Link :href="route('patients.edit', { patient: patient.id })">
+                    <button
+                      class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                    >
+                      <PencilIcon class="w-5 h-5" />
+                    </button>
+                  </Link>
+                  <button
+                    @click="setDelete(patient)"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-400 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                    aria-label="Delete"
+                  >
+                    <TrashIcon class="w-5 h-5" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </template>
+          <TableNoData :colspan="6" v-else />
         </tbody>
       </table>
     </div>
@@ -135,6 +138,7 @@ import Pagination from '@/Components/Pagination.vue'
 import Modal from '@/Components/Modal.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import InputText from '@/Components/InputText.vue'
+import TableNoData from '@/Components/TableNoData.vue'
 
 import { PencilIcon } from '@heroicons/vue/24/solid'
 import { UserPlusIcon } from '@heroicons/vue/24/solid'
@@ -160,6 +164,7 @@ export default {
     Modal,
     InputText,
     InputLabel,
+    TableNoData,
 
     PencilIcon,
     TrashIcon,

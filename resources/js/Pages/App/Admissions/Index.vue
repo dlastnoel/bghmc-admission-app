@@ -76,53 +76,56 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
-          <tr
-            class="text-gray-700"
-            v-for="(admission, i) in admissions.data"
-            :key="i"
-          >
-            <td class="px-4 py-3">
-              <div>
-                <p class="font-semibold">
-                  {{ displayName(admission.patient) }}
-                </p>
-                <p class="text-xs text-gray-600">
-                  {{ admission.patient.age }} yrs old
-                </p>
-              </div>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              {{ admission.ward }}
-            </td>
-            <td class="px-4 py-3">
-              <AdmissionStatusChip :admission="admission" />
-            </td>
-            <td class="px-4 py-3 text-sm">
-              {{
-                moment(admission.admitted_at).format("YYYY-MM-DD hh:mm:ss A")
-              }}
-            </td>
-            <td class="px-4 py-3 text-sm">
-              {{
-                admission.discharged_at
-                  ? moment(admission.discharged_at).format(
-                      "YYYY-MM-DD hh:mm:ss A"
-                    )
-                  : "N/A"
-              }}
-            </td>
-            <td class="px-4 py-3">
-              <div class="flex items-center space-x-4 text-sm">
-                <button
-                  v-if="!admission.discharged_at"
-                  @click="setDischarge(admission)"
-                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-pink-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                >
-                  <ArchiveBoxXMarkIcon class="w-5 h-5" />
-                </button>
-              </div>
-            </td>
-          </tr>
+          <template v-if="admissions.data.length">
+            <tr
+              class="text-gray-700"
+              v-for="(admission, i) in admissions.data"
+              :key="i"
+            >
+              <td class="px-4 py-3">
+                <div>
+                  <p class="font-semibold">
+                    {{ displayName(admission.patient) }}
+                  </p>
+                  <p class="text-xs text-gray-600">
+                    {{ admission.patient.age }} yrs old
+                  </p>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-sm">
+                {{ admission.ward }}
+              </td>
+              <td class="px-4 py-3">
+                <AdmissionStatusChip :admission="admission" />
+              </td>
+              <td class="px-4 py-3 text-sm">
+                {{
+                  moment(admission.admitted_at).format("YYYY-MM-DD hh:mm:ss A")
+                }}
+              </td>
+              <td class="px-4 py-3 text-sm">
+                {{
+                  admission.discharged_at
+                    ? moment(admission.discharged_at).format(
+                        "YYYY-MM-DD hh:mm:ss A"
+                      )
+                    : "N/A"
+                }}
+              </td>
+              <td class="px-4 py-3">
+                <div class="flex items-center space-x-4 text-sm">
+                  <button
+                    v-if="!admission.discharged_at"
+                    @click="setDischarge(admission)"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-pink-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                  >
+                    <ArchiveBoxXMarkIcon class="w-5 h-5" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </template>
+          <TableNoData :colspan="6" v-else />
         </tbody>
       </table>
     </div>
@@ -154,6 +157,7 @@ import Pagination from '@/Components/Pagination.vue'
 import AdmissionStatusChip from '@/Components/AdmissionStatusChip.vue'
 import Modal from '@/Components/Modal.vue'
 import InputText from '@/Components/InputText.vue'
+import TableNoData from '@/Components/TableNoData.vue'
 
 import { ArchiveBoxXMarkIcon } from '@heroicons/vue/24/solid'
 
@@ -178,6 +182,7 @@ export default {
     AdmissionStatusChip,
     Modal,
     InputText,
+    TableNoData,
 
     ArchiveBoxXMarkIcon
   },

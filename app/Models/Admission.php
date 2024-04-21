@@ -27,4 +27,9 @@ class Admission extends Model
     {
         return $query->whereNotNull('discharged_at');
     }
+
+    public function scopeAdmitted($query): Builder
+    {
+        return $query->whereNull('discharged_at');
+    }
 }
