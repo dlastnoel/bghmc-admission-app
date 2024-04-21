@@ -92,7 +92,7 @@
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              {{ admission.ward }}
+              {{ admission.ward.name }}
             </td>
             <td class="px-4 py-3">
               <AdmissionStatusChip :admission="admission" />

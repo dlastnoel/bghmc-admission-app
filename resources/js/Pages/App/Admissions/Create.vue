@@ -19,6 +19,7 @@
             >
               <PatientAutocomplete
                 v-bind="field"
+                class="z-20"
                 :modelValue="field.value"
                 :patients="patients"
                 :filterRoute="route('admissions.create')"
@@ -29,8 +30,13 @@
             </Field>
           </div>
           <div class="col-span-12">
-            <InputLabel for="ward">Ward</InputLabel>
-            <Field
+            <InputLabel for="ward_id"
+              >Ward
+              <span class="italic text-sm font-medium">
+                {{ wardVacant ? `(${wardVacant} vacant)` : "" }}
+              </span></InputLabel
+            >
+            <!-- <Field
               v-slot="{ field, errorMessage }"
               name="ward"
               label="Ward"
@@ -45,6 +51,25 @@
                 :modelValue="field.value"
               >
               </InputText>
+              <ErrorMessage :message="errorMessage" />
+            </Field> -->
+            <!-- <InputLabel for="ward">Ward</InputLabel> -->
+            <Field
+              v-slot="{ field, errorMessage }"
+              name="ward"
+              label="Ward"
+              rules="required"
+              v-model="form.ward_id"
+            >
+              <WardAutocomplete
+                v-bind="field"
+                class="z-10"
+                :modelValue="field.value"
+                :wards="wards"
+                :filterRoute="route('admissions.create')"
+                :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
+                :partials="['wards']"
+              />
               <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
@@ -69,6 +94,7 @@ import InputLabel from '@/Components/InputLabel.vue'
 import InputText from '@/Components/InputText.vue'
 import ErrorMessage from '@/Components/ErrorMessage.vue'
 import PatientAutocomplete from '@/Components/PatientAutocomplete.vue'
+import WardAutocomplete from '@/Components/WardAutocomplete.vue'
 import ButtonPrimary from '@/Components/ButtonPrimary.vue'
 
 import { useForm } from '@inertiajs/vue3'
@@ -91,11 +117,13 @@ export default {
     InputText,
     ErrorMessage,
     PatientAutocomplete,
+    WardAutocomplete,
     ButtonPrimary
   },
 
   props: {
     patients: Object,
+    wards: Object
   },
 
   data() {
@@ -104,8 +132,20 @@ export default {
 
       form: useForm({
         patient_id: this.patients.data.length ? this.patients.data[0] : '',
-        ward: ''
+        ward: '',
+        ward_id: '',
       }),
+    }
+  },
+
+  computed: {
+
+    wardVacant() {
+
+      if(this.form.ward_id && typeof this.form_ward_id !== String && typeof this.form.ward_id !== undefined) {
+        return parseInt(this.form.ward_id.capacity) - parseInt(this.form.ward_id.admission_count)
+      }
+      return ''
     }
   },
 
@@ -117,7 +157,7 @@ export default {
 
       this.form.transform((data) => ({
         patient_id: data.patient_id.id,
-        ward: data.ward
+        ward_id: data.ward_id.id
       })).post(route('admissions.store'), {
 
         preserveState: true,

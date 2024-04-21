@@ -13,7 +13,7 @@ class AdmissionFilter implements Filterable
     {
         $direction = request('direction') && request('direction') === 'Latest' ? 'ASC' : 'DESC';
 
-        $admissions = Admission::with('patient')
+        $admissions = Admission::with('patient', 'ward')
 
             ->withWhereHas('patient', function ($query) {
 
@@ -23,9 +23,12 @@ class AdmissionFilter implements Filterable
                 });
             })
 
-            ->when(request('ward'), function ($query) {
+            ->withWhereHas('ward', function ($query) {
 
-                $query->where('ward', 'LIKE', '%' . request('ward') . '%');
+                $query->when(request('ward'), function ($query) {
+
+                    $query->filter(request('ward'));
+                });
             })
 
             ->when(request('status') && request('status') !== 'All', function ($query) {

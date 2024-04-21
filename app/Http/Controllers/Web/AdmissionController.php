@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\AdmissionFilter;
 use App\Http\Queries\PatientQuery;
+use App\Http\Queries\WardQuery;
 use App\Http\Requests\StoreAdmissionRequest;
 use App\Http\Resources\AdmissionResource;
 use App\Http\Resources\PatientResource;
+use App\Http\Resources\WardResource;
 use App\Models\Admission;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,8 +42,11 @@ class AdmissionController extends Controller
     {
         $patients = fn () => PatientResource::collection(PatientQuery::execute(request('patient_id'), request('query')));
 
+        $wards = fn () => WardResource::collection(WardQuery::execute(request('ward_id'), request('ward')));
+
         return Inertia::render('App/Admissions/Create', [
-            'patients' => $patients
+            'patients' => $patients,
+            'wards' => $wards
         ]);
     }
 
@@ -55,6 +60,6 @@ class AdmissionController extends Controller
             'admitted_at' => Carbon::now()
         ]);
 
-        return redirect()->route('admissions.index');
+        return Redirect()->route('admissions.index');
     }
 }
