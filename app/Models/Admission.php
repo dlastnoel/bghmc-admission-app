@@ -13,7 +13,7 @@ class Admission extends Model
 
     protected $fillable = [
         'patient_id',
-        'ward',
+        'ward_id',
         'admitted_at',
         'discharged_at'
     ];
@@ -21,6 +21,11 @@ class Admission extends Model
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function ward(): BelongsTo
+    {
+        return $this->belongsTo(Ward::class);
     }
 
     public function scopeDischarged($query): Builder
