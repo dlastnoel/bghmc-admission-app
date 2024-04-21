@@ -1,12 +1,12 @@
 <template>
-  <div class="flex justify-between items-center">
-    <PageTitle title="Wards" />
-  </div>
+  <!-- page info -->
+  <PageTitle title="Wards" />
 
   <FormWrapper name="Ward" description="Name a ward and input capacity.">
     <Form @submit="handleSubmit">
       <FormBody>
         <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="name">Ward</InputLabel>
             <div class="mt-2">
@@ -31,6 +31,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="description">Description</InputLabel>
             <div class="mt-2">
@@ -54,6 +55,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="capacity">Capacity</InputLabel>
             <div class="mt-2">

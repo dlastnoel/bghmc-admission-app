@@ -1,4 +1,5 @@
 <template>
+  <!-- page info and action -->
   <div class="flex justify-between items-center">
     <PageTitle title="Wards" />
     <Link :href="route('wards.create')">
@@ -6,10 +7,12 @@
     </Link>
   </div>
 
+  <!-- filters -->
   <div
     class="w-full flex flex-col md:flex-row justify-between items-center gap-3"
   >
     <div class="w-full md:w-auto">
+      <!--  -->
       <InputText
         v-model="filterForm.query"
         placeholder="Search"
@@ -20,6 +23,7 @@
     <div
       class="flex w-full md:w-auto flex-col md:flex-row justify-end items-center relative gap-3"
     >
+      <!--  -->
       <select
         v-model="filterForm.sort_by"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -27,6 +31,8 @@
         <option value="Date Created">Date Created</option>
         <option value="Name">Name</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.direction"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -34,6 +40,8 @@
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.size"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -45,6 +53,7 @@
     </div>
   </div>
 
+  <!-- table -->
   <div class="mt-5 w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
@@ -59,8 +68,10 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
+          <!-- has data -->
           <template v-if="wards.data.length">
             <tr class="text-gray-700" v-for="(ward, i) in wards.data" :key="i">
+              <!--  -->
               <td class="px-4 py-3">
                 <div>
                   <p class="font-semibold">{{ ward.name }}</p>
@@ -69,6 +80,8 @@
                   </p>
                 </div>
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 <div>
                   <p class="font-semibold">
@@ -80,15 +93,19 @@
                   </div>
                 </div>
               </td>
+
+              <!-- admit action -->
               <td class="py-3">
                 <button
-                  @click="handleAdmitWard(ward)"
+                  @click="handleAdmitToWard(ward)"
                   v-if="ward.vacant"
                   class="flex items-center justify-between px-2 py-2 text-sm leading-5 text-green-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 >
                   <SquaresPlusIcon class="w-5 h-5" />
                 </button>
               </td>
+
+              <!-- edit action -->
               <td class="px-4 py-3">
                 <div class="flex justify-center items-center text-sm gap-2">
                   <Link :href="route('wards.edit', { ward: ward.id })">
@@ -102,10 +119,14 @@
               </td>
             </tr>
           </template>
+
+          <!-- no data -->
           <TableNoData :colspan="4" class="px-4 py-3" v-else />
         </tbody>
       </table>
     </div>
+
+    <!--  -->
     <Pagination :meta="wards.meta" :partials="['wards']" />
   </div>
 </template>
@@ -181,7 +202,7 @@ export default {
 
   methods: {
 
-    handleAdmitWard(ward) {
+    handleAdmitToWard(ward) {
       router.post(route('admissions.create'), {
         ward_id: ward.id
       })

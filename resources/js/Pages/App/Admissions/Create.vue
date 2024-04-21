@@ -1,4 +1,5 @@
 <template>
+  <!-- page info -->
   <PageTitle title="Admissions" />
 
   <FormWrapper
@@ -8,6 +9,7 @@
     <Form @submit="handleSubmit">
       <FormBody>
         <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="patient_id">Patient</InputLabel>
             <Field
@@ -29,6 +31,8 @@
               <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
+
+          <!--  -->
           <div class="col-span-12">
             <InputLabel for="ward_id"
               >Ward
@@ -36,24 +40,6 @@
                 {{ wardVacant ? `(${wardVacant} vacant)` : "" }}
               </span></InputLabel
             >
-            <!-- <Field
-              v-slot="{ field, errorMessage }"
-              name="ward"
-              label="Ward"
-              rules="required"
-              v-model="form.ward"
-            >
-              <InputText
-                v-bind="field"
-                placeholder="Ward"
-                class="w-full"
-                :class="errorMessage ? 'border-red-500' : 'border-gray-300'"
-                :modelValue="field.value"
-              >
-              </InputText>
-              <ErrorMessage :message="errorMessage" />
-            </Field> -->
-            <!-- <InputLabel for="ward">Ward</InputLabel> -->
             <Field
               v-slot="{ field, errorMessage }"
               name="ward"

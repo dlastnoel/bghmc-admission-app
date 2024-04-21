@@ -1,4 +1,5 @@
 <template>
+  <!-- page info and action -->
   <div class="flex justify-between items-center">
     <PageTitle title="Patients" />
     <Link :href="route('patients.create')">
@@ -6,9 +7,11 @@
     </Link>
   </div>
 
+  <!-- filters -->
   <div
     class="w-full flex flex-col md:flex-row justify-between items-center gap-3"
   >
+    <!--  -->
     <div class="w-full md:w-auto">
       <InputText
         v-model="filterForm.query"
@@ -17,9 +20,11 @@
       >
       </InputText>
     </div>
+
     <div
       class="flex w-full md:w-auto flex-col md:flex-row justify-end items-center relative gap-3"
     >
+      <!--  -->
       <select
         v-model="filterForm.sort_by"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -27,6 +32,8 @@
         <option value="Date Created">Date Created</option>
         <option value="Name">Name</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.direction"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -34,6 +41,8 @@
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.size"
         class="h-full rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -45,6 +54,7 @@
     </div>
   </div>
 
+  <!-- table -->
   <div class="mt-5 w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
@@ -60,24 +70,32 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
+          <!-- has data -->
           <template v-if="patients.data.length">
             <tr
               class="text-gray-700"
               v-for="(patient, i) in patients.data"
               :key="i"
             >
+              <!--  -->
               <td class="px-4 py-3">
                 <div>
                   <p class="font-semibold">{{ displayName(patient) }}</p>
                   <p class="text-xs text-gray-600">{{ patient.age }} yrs old</p>
                 </div>
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 {{ moment(patient.date_of_birth).format("YYYY-MM-DD") }}
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 {{ patient.address }}
               </td>
+
+              <!-- admit action  -->
               <td class="py-3">
                 <button
                   @click="handleAdmitPatient(patient)"
@@ -87,8 +105,11 @@
                   <UserPlusIcon class="w-5 h-5" />
                 </button>
               </td>
+
+              <!-- delete | edit actions  -->
               <td class="px-4 py-3">
                 <div class="flex justify-center items-center text-sm gap-2">
+                  <!--  -->
                   <Link :href="route('patients.edit', { patient: patient.id })">
                     <button
                       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
@@ -96,6 +117,8 @@
                       <PencilIcon class="w-5 h-5" />
                     </button>
                   </Link>
+
+                  <!--  -->
                   <button
                     @click="setDelete(patient)"
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-400 rounded-lg focus:outline-none focus:shadow-outline-gray"
@@ -107,13 +130,18 @@
               </td>
             </tr>
           </template>
+
+          <!-- no data -->
           <TableNoData :colspan="5" v-else />
         </tbody>
       </table>
     </div>
+
+    <!--  -->
     <Pagination :meta="patients.meta" :partials="['patients']" />
   </div>
 
+  <!-- modal for delete -->
   <Modal
     v-if="isDeleteModalVisible"
     title="Delete Patient"

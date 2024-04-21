@@ -1,20 +1,21 @@
 <template>
-  <div
-    class="flex h-screen bg-gray-50"
-    :class="{ 'overflow-hidden': isSideMenuOpen }"
-  >
+  <div class="flex h-screen bg-gray-50">
+    <!-- sidebar desktop -->
     <SidebarDesktop :sidebarLinks="sidebarLinks" />
 
+    <!-- sidebar mobile -->
     <SidebarMobile
       :sidebarLinks="sidebarLinks"
       v-if="isSidebarForMobileVisible"
     />
 
     <div class="flex flex-col flex-1 w-full">
+      <!-- headers -->
       <header class="z-10 py-4 bg-white shadow">
         <div
           class="container flex items-center justify-between h-full px-3 mx-auto text-blue-400"
         >
+          <!-- mobile sidebar hamburger -->
           <button
             @click="isSidebarForMobileVisible = !isSidebarForMobileVisible"
             class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
@@ -27,6 +28,8 @@
               class="relative w-full max-w-xl mr-6 focus-within:text-purple-500"
             ></div>
           </div>
+
+          <!-- user info -->
           <ul class="flex items-center flex-shrink-0 space-x-6">
             <li class="flex justify-center items-center gap-2">
               <span class="text-sm text-gray-800 font-medium">
@@ -43,7 +46,7 @@
         </div>
       </header>
 
-      <!-- MAIN -->
+      <!-- main -->
       <main class="h-full overflow-y-auto pb-10">
         <div class="container px-6 mx-auto grid">
           <slot />

@@ -1,7 +1,6 @@
 <template>
-  <div class="flex justify-between items-center">
-    <PageTitle title="Patients" />
-  </div>
+  <!-- page info -->
+  <PageTitle title="Patients" />
 
   <FormWrapper
     name="Patient Information"
@@ -11,6 +10,7 @@
     <Form @submit="handleSubmit">
       <FormBody>
         <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <!--  -->
           <div class="col-span-12 md:col-span-6">
             <InputLabel label="firstname">First Name</InputLabel>
             <div class="mt-2">
@@ -35,6 +35,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12 md:col-span-6">
             <InputLabel label="middlename">Middle Name</InputLabel>
             <div class="mt-2">
@@ -58,6 +59,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12 md:col-span-6">
             <InputLabel label="lastname">Last Name</InputLabel>
             <div class="mt-2">
@@ -82,6 +84,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12 md:col-span-6">
             <InputLabel label="suffix">Suffix</InputLabel>
             <div class="mt-2">
@@ -105,6 +108,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="date_of_birth">Date of Birth</InputLabel>
             <div class="mt-2">
@@ -129,6 +133,7 @@
             </div>
           </div>
 
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="address">Address</InputLabel>
             <div class="mt-2">
