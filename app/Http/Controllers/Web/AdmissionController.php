@@ -23,7 +23,7 @@ class AdmissionController extends Controller
     public function index(Request $request)
     {
         $admissions = fn () => AdmissionResource::collection(AdmissionFilter::get());
-        $admissionsToday = fn () => Admission::whereDate('admitted_at', Carbon::today())
+        $admissionsToday = fn () => Admission::whereDate('admitted_at', Carbon::now())
             ->whereNull('discharged_at')->count();
 
         $filters = fn () => $request->only('patient', 'ward', 'status', 'sort_by', 'direction', 'size');

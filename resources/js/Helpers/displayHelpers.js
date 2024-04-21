@@ -1,5 +1,5 @@
 const displayName = (model, isLastNameFirst = false, showFull = true) => {
-  if(model) {
+  if(model.firstname) {
     let lastname = model.lastname
     let firstname = model.firstname
     let middlename = 0
