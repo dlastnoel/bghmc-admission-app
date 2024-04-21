@@ -133,7 +133,7 @@ export default {
       form: useForm({
         patient_id: this.patients.data.length ? this.patients.data[0] : '',
         ward: '',
-        ward_id: '',
+        ward_id: this.wards.data.length ? this.wards.data[0] : '',
       }),
     }
   },

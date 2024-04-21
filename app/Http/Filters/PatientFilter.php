@@ -11,8 +11,6 @@ class PatientFilter implements Filterable
 
     public static function get(): LengthAwarePaginator
     {
-
-        // $sortBy = ['firstname', 'middlename', 'lastname'];
         $sortBy = ['created_at'];
         $direction = request('direction') && request('direction') === 'Ascending' ? 'ASC' : 'DESC';
 

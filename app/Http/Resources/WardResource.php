@@ -20,6 +20,8 @@ class WardResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'capacity' => $this->capacity,
+            'vacant' => $this->whenLoaded('admissions') ? $this->vacant : '',
+            'occupied' => $this->whenLoaded('admissions') ? $this->occupied : '',
             'created_at' => Carbon::parse($this->created_at)->toDateTimeString(),
             'updated_at' => Carbon::parse($this->updated_at)->toDateTimeString(),
 

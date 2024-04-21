@@ -15,10 +15,10 @@ class PatientQuery implements Executable
 
         if ($primary || $context) {
 
-            $patients = Patient::whereDoesntHave('admissions', function ($query) {
+            $patients = Patient::withCount(['admissions' => function ($query) {
 
-                $query->whereNull('discharged_at');
-            })
+                $query->admitted();
+            }])
 
 
                 ->when($primary && !$context, function ($query) use ($primary) {
@@ -38,6 +38,8 @@ class PatientQuery implements Executable
                 ->get();
         }
 
-        return $patients;
+        return ($patients->filter(function ($patient) {
+            return $patient->admissions_count <= 0;
+        }));
     }
 }

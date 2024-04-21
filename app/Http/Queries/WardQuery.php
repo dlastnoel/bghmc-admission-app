@@ -34,6 +34,8 @@ class WardQuery implements Executable
                 ->get();
         }
 
-        return $wards;
+        return ($wards->filter(function ($ward) {
+            return $ward->admissions_count < $ward->capacity;
+        }));
     }
 }
