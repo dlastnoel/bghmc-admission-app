@@ -59,45 +59,50 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
-          <tr class="text-gray-700" v-for="(ward, i) in wards.data" :key="i">
-            <td class="px-4 py-3">
-              <div>
-                <p class="font-semibold">{{ ward.name }}</p>
-                <p class="text-xs text-gray-600">
-                  {{ ward.description }}
-                </p>
-              </div>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <div>
-                <p class="font-semibold">{{ ward.capacity }} Total Capacity</p>
-                <div class="mt-3 flex justify-start items-center gap-2">
-                  <WardChip :ward="ward" type="vacant" />
-                  <WardChip :ward="ward" type="occupied" />
+          <template v-if="wards.data.length">
+            <tr class="text-gray-700" v-for="(ward, i) in wards.data" :key="i">
+              <td class="px-4 py-3">
+                <div>
+                  <p class="font-semibold">{{ ward.name }}</p>
+                  <p class="text-xs text-gray-600">
+                    {{ ward.description }}
+                  </p>
                 </div>
-              </div>
-            </td>
-            <td class="py-3">
-              <button
-                @click="handleAdmitWard(ward)"
-                v-if="ward.vacant"
-                class="flex items-center justify-between px-2 py-2 text-sm leading-5 text-green-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
-              >
-                <SquaresPlusIcon class="w-5 h-5" />
-              </button>
-            </td>
-            <td class="px-4 py-3">
-              <div class="flex justify-center items-center text-sm gap-2">
-                <Link :href="route('wards.edit', { ward: ward.id })">
-                  <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                  >
-                    <PencilIcon class="w-5 h-5" />
-                  </button>
-                </Link>
-              </div>
-            </td>
-          </tr>
+              </td>
+              <td class="px-4 py-3 text-sm">
+                <div>
+                  <p class="font-semibold">
+                    {{ ward.capacity }} Total Capacity
+                  </p>
+                  <div class="mt-3 flex justify-start items-center gap-2">
+                    <WardChip :ward="ward" type="vacant" />
+                    <WardChip :ward="ward" type="occupied" />
+                  </div>
+                </div>
+              </td>
+              <td class="py-3">
+                <button
+                  @click="handleAdmitWard(ward)"
+                  v-if="ward.vacant"
+                  class="flex items-center justify-between px-2 py-2 text-sm leading-5 text-green-700 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                >
+                  <SquaresPlusIcon class="w-5 h-5" />
+                </button>
+              </td>
+              <td class="px-4 py-3">
+                <div class="flex justify-center items-center text-sm gap-2">
+                  <Link :href="route('wards.edit', { ward: ward.id })">
+                    <button
+                      class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                    >
+                      <PencilIcon class="w-5 h-5" />
+                    </button>
+                  </Link>
+                </div>
+              </td>
+            </tr>
+          </template>
+          <TableNoData :colspan="4" class="px-4 py-3" v-else />
         </tbody>
       </table>
     </div>
@@ -116,6 +121,7 @@ import Modal from '@/Components/Modal.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import InputText from '@/Components/InputText.vue'
 import WardChip from '@/Components/WardChip.vue'
+import TableNoData from '@/Components/TableNoData.vue'
 
 import { PencilIcon } from '@heroicons/vue/24/solid'
 import { SquaresPlusIcon } from '@heroicons/vue/24/solid'
@@ -139,6 +145,7 @@ export default {
     InputText,
     InputLabel,
     WardChip,
+    TableNoData,
 
     PencilIcon,
     TrashIcon,
