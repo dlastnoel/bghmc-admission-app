@@ -95,7 +95,7 @@ import { EyeIcon, EyeSlashIcon } from  '@heroicons/vue/24/solid'
 
 import notyf from '@/Utils/useNotyf'
 import { useForm } from '@inertiajs/vue3'
-import svg from '../../../images/login.svg'
+import svg from '../../../images/app.svg'
 
 export default {
 
