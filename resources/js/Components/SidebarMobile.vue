@@ -7,16 +7,12 @@
         <span class="text-blue-600">Admission</span> App
       </h1>
       <ul class="mt-6">
-        <li
-          class="relative px-3"
-          v-for="(sidebarLink, i) in sidebarLinks"
-          :key="i"
-        >
+        <li class="relative px-3" v-for="(sidebarLink, i) in links" :key="i">
           <Link
             :href="route(sidebarLink.route)"
             class="rounded-lg mt-4 px-5 py-3 inline-flex items-center w-full text-md font-semibold transition-all duration-100 hover:bg-blue-600 hover:text-white"
             :class="
-              sidebarLink.active
+              sidebarLink.active.includes($page.component)
                 ? 'bg-blue-600 text-white'
                 : 'bg-white text-gray-800'
             "
@@ -32,7 +28,7 @@
 
 <script>
 import { Link } from '@inertiajs/vue3'
-import { isRouteActive } from '@/Utils/routeUtils'
+import { sidebarLinks } from '@/Utils/constants.js'
 
 export default {
 
@@ -40,17 +36,12 @@ export default {
     Link,
   },
 
-  props: {
-    sidebarLinks: {
-      type: Object,
-      required: true
+  computed: {
+
+    links() {
+      return sidebarLinks
     }
   },
-
-  methods: {
-
-    isRouteActive,
-  }
 }
 </script>
 

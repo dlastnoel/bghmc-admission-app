@@ -12,7 +12,7 @@
             :href="route(sidebarLink.route)"
             class="rounded-lg mt-4 px-5 py-3 inline-flex items-center w-full text-md font-semibold transition-all duration-100 hover:bg-blue-600 hover:text-white"
             :class="
-              isRouteActive(sidebarLink.active)
+              sidebarLink.active.includes($page.component)
                 ? 'bg-blue-600 text-white'
                 : 'bg-white text-gray-800'
             "
@@ -28,7 +28,7 @@
 
 <script>
 import { Link } from '@inertiajs/vue3'
-import { isRouteActive } from '@/Utils/routeUtils'
+import { sidebarLinks } from '@/Utils/constants.js'
 
 export default {
 
@@ -45,14 +45,9 @@ export default {
 
   computed: {
     links() {
-      return this.sidebarLinks
+      return sidebarLinks
     }
   },
-
-  methods: {
-
-    isRouteActive,
-  }
 }
 </script>
 
