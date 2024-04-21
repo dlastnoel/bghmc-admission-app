@@ -19,14 +19,16 @@ class Ward extends Model
 
     public function getVacantAttribute(): int
     {
-        return (int)$this->capacity - ($this->admissions->whereNotNull('discharged_at'))->count();
+        $count = ($this->admissions->whereNull('discharged_at'))->count();
+
+        return $count ? (int)$this->capacity - $count : $this->capacity;
     }
 
     public function getOccupiedAttribute(): int
     {
         $count = ($this->admissions->whereNull('discharged_at'))->count();
 
-        return $count ? (int)$this->capacity - $count : 0;
+        return $count;
     }
 
     public function admissions(): HasMany
