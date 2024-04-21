@@ -2,14 +2,19 @@
   <main class="grid grid-cols-1 lg:grid-cols-2 h-screen w-full">
     <!-- left login -->
     <div class="grid place-content-center w-full">
+      <!-- image for mobile -->
       <img
         :src="svg"
         alt="Admission App"
         class="lg:hidden w-72 md:w-96 mb-5 m-auto"
       />
+
+      <!-- title -->
       <h1 class="text-4xl font-medium text-center">
         <span class="text-blue-600">Admission</span> App
       </h1>
+
+      <!-- card login -->
       <div
         class="rounded-lg shadow border border-grey-50 p-8 mt-5 w-[400px] md:w-[450px]"
       >

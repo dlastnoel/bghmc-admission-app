@@ -8,6 +8,7 @@
     <Form @submit="handleSubmit">
       <FormBody>
         <div class="grid w-full grid-cols-12 gap-x-6 gap-y-8">
+          <!--  -->
           <div class="col-span-12">
             <InputLabel label="patient_id">Patient</InputLabel>
             <Field
@@ -28,6 +29,8 @@
               <ErrorMessage :message="errorMessage" />
             </Field>
           </div>
+
+          <!--  -->
           <div class="col-span-12">
             <InputLabel for="ward">Ward</InputLabel>
             <Field

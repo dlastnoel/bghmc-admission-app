@@ -1,39 +1,48 @@
 <template>
+  <!-- page info and action -->
   <div class="flex justify-between items-center">
     <PageTitle title="Admissions" />
     <Link :href="route('admissions.create')">
-      <ButtonPrimary>Admit</ButtonPrimary>
+      <ButtonPrimary> Admit </ButtonPrimary>
     </Link>
   </div>
 
+  <!-- cards -->
   <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
     <Card :item="cards[0]" />
   </div>
 
+  <!-- filters -->
   <div
     class="w-full flex flex-col md:flex-row justify-between items-center gap-3"
   >
     <div
       class="flex w-full md:w-auto flex-col md:flex-row justify-end items-center relative gap-3"
     >
+      <!--  -->
       <div class="w-full md:w-auto">
         <InputText
           v-model="filterForm.patient"
           placeholder="Patient"
           class="border-gray-300 w-full md:w-auto"
-        ></InputText>
+        >
+        </InputText>
       </div>
+
+      <!--  -->
       <div class="w-full md:w-auto">
         <InputText
           v-model="filterForm.ward"
           placeholder="Ward"
           class="border-gray-300 w-full md:w-auto"
-        ></InputText>
+        >
+        </InputText>
       </div>
     </div>
     <div
       class="flex w-full md:w-auto flex-col md:flex-row justify-end items-center relative gap-3"
     >
+      <!--  -->
       <select
         v-model="filterForm.status"
         class="rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -42,6 +51,8 @@
         <option value="Admitted">Admitted</option>
         <option value="Discharged">Discharged</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.direction"
         class="rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -49,6 +60,8 @@
         <option value="Latest">Latest</option>
         <option value="Oldest">Oldest</option>
       </select>
+
+      <!--  -->
       <select
         v-model="filterForm.size"
         class="rounded-md border-gray-300 py-3 text-sm w-full md:w-auto"
@@ -60,6 +73,7 @@
     </div>
   </div>
 
+  <!-- table -->
   <div class="mt-5 w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
@@ -76,12 +90,14 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y">
+          <!-- has data -->
           <template v-if="admissions.data.length">
             <tr
               class="text-gray-700"
               v-for="(admission, i) in admissions.data"
               :key="i"
             >
+              <!--  -->
               <td class="px-4 py-3">
                 <div>
                   <p class="font-semibold">
@@ -92,17 +108,25 @@
                   </p>
                 </div>
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 {{ admission.ward }}
               </td>
+
+              <!--  -->
               <td class="px-4 py-3">
                 <AdmissionStatusChip :admission="admission" />
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 {{
                   moment(admission.admitted_at).format("YYYY-MM-DD hh:mm:ss A")
                 }}
               </td>
+
+              <!--  -->
               <td class="px-4 py-3 text-sm">
                 {{
                   admission.discharged_at
@@ -112,8 +136,11 @@
                     : "N/A"
                 }}
               </td>
+
+              <!-- actions -->
               <td class="px-4 py-3">
                 <div class="flex items-center space-x-4 text-sm">
+                  <!-- discharge -->
                   <button
                     v-if="!admission.discharged_at"
                     @click="setDischarge(admission)"
@@ -125,13 +152,18 @@
               </td>
             </tr>
           </template>
+
+          <!-- no data -->
           <TableNoData :colspan="6" v-else />
         </tbody>
       </table>
     </div>
+
+    <!--  -->
     <Pagination :meta="admissions.meta" :partials="['admissions']" />
   </div>
 
+  <!-- modal for discharge -->
   <Modal
     v-if="isDischargeModalVisible"
     title="Discharge admission"
